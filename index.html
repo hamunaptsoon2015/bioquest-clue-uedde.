@@ -1,279 +1,266 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>BioQuest CLUE — UEDDE</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BioQuest CLUE UEDDE · Versión Juvenil</title>
 <style>
-:root{--bg:#071327;--panel:#10294bcc;--line:#47b9ff;--soft:#dbeeff;--gold:#ffcf5a;--green:#69d66f;--red:#ff728f;--shadow:0 10px 35px rgba(0,0,0,.35);}
+:root{--bg1:#05111f;--bg2:#0b2441;--card:#102849ee;--stroke:rgba(116,223,255,.35);--text:#eef8ff;--muted:#cde5ff;--accent:#7df3ff;--gold:#ffd76b;--green:#8dff9f;--pink:#ff7fd5;--purple:#825cff;--shadow:0 20px 45px rgba(0,0,0,.35);}
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(circle at top,#14335d,#081223 60%);font-family:Arial,Helvetica,sans-serif;color:#fff;}
-.wrap{max-width:1220px;margin:0 auto;padding:20px;}
+body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--text);background:radial-gradient(circle at top,#1b4c85 0,#0a1930 34%,#050d19 100%);}
+body::before{content:'';position:fixed;inset:0;background:linear-gradient(135deg,rgba(80,220,255,.08),transparent 40%,rgba(255,120,204,.08));pointer-events:none;}
 .hidden{display:none !important;}
-.card{background:linear-gradient(180deg,rgba(10,28,54,.95),rgba(8,20,40,.93));border:1px solid rgba(98,197,255,.55);border-radius:24px;box-shadow:var(--shadow);overflow:hidden;}
-.screen{min-height:calc(100vh - 40px);display:flex;align-items:center;justify-content:center;}
-/* Home exact image */
-.poster-shell{position:relative;width:min(100%,1160px);aspect-ratio:1672/941;border-radius:24px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.45);background:#0b1a31;}
-.poster-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
-.poster-overlay{position:absolute;inset:0;}
-.start-input{position:absolute;left:44.5%;top:41.1%;width:30.6%;height:6.1%;border:none;border-radius:14px;padding:0 18px;background:rgba(255,255,255,.92);font-size:clamp(14px,1.45vw,22px);color:#333;box-shadow:inset 0 1px 4px rgba(0,0,0,.15);}
-.start-input:focus{outline:3px solid rgba(59,201,255,.55);}
-.start-btn{position:absolute;left:45.6%;top:52.4%;width:28%;height:8.4%;border:none;border-radius:26px;background:rgba(0,0,0,0);cursor:pointer;}
-.start-btn:hover{background:rgba(255,255,255,.06);}
-.error-home{position:absolute;left:44.5%;top:61.7%;width:31%;text-align:center;color:#ffd1d1;background:rgba(110,0,0,.45);border:1px solid rgba(255,200,200,.3);padding:6px 10px;border-radius:10px;font-size:clamp(11px,1.1vw,15px);display:none;}
-.home-help{position:absolute;left:44.6%;top:67.6%;width:30.8%;font-size:clamp(10px,1vw,14px);text-align:center;color:#e4efff;text-shadow:0 2px 5px rgba(0,0,0,.8);}
-/* Game screen */
-.game-layout{display:grid;grid-template-columns:330px 1fr;gap:20px;padding:20px;min-height:calc(100vh - 40px);}
-.side-panel{padding:18px;background:linear-gradient(180deg,rgba(4,20,37,.88),rgba(8,27,50,.96));border-right:1px solid rgba(90,190,255,.32);}
-.brand{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
-.brand img{height:64px;background:#fff;border-radius:12px;padding:6px;}
-.brand-text{font-weight:800;font-size:14px;color:#d9eeff;line-height:1.3}
-.hero-side{border-radius:18px;overflow:hidden;border:1px solid rgba(105,212,255,.35);margin:16px 0;background:#0b2241;}
-.hero-side img{width:100%;display:block;}
-.stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
-.stat{background:rgba(255,255,255,.06);border:1px solid rgba(105,212,255,.22);padding:12px;border-radius:14px;}
-.stat b{display:block;font-size:22px;color:#fff;margin-top:3px;}
-.main-panel{padding:18px 18px 20px;display:flex;flex-direction:column;gap:14px;background:linear-gradient(180deg,rgba(8,20,42,.9),rgba(12,34,63,.94));position:relative;}
-.main-panel:before{content:'';position:absolute;inset:0;background:url("poster_portada.jpg") center/cover no-repeat;opacity:.13;pointer-events:none;}
-.main-panel>*{position:relative;z-index:1;}
-.top-bar{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;}
-.pill{background:rgba(255,255,255,.08);border:1px solid rgba(101,211,255,.35);padding:10px 14px;border-radius:999px;color:#e5f4ff;font-weight:700;}
-.progress-wrap{background:rgba(255,255,255,.1);border-radius:999px;overflow:hidden;height:12px;border:1px solid rgba(94,200,255,.28)}
-.progress-bar{height:100%;width:0;background:linear-gradient(90deg,#46cbff,#7bff95);transition:width .3s ease;}
-.world-banner{display:grid;grid-template-columns:130px 1fr;gap:16px;align-items:center;padding:16px;border-radius:20px;background:linear-gradient(135deg,rgba(30,66,114,.7),rgba(12,31,61,.94));border:1px solid rgba(114,210,255,.35);}
-.world-banner img{width:130px;height:92px;object-fit:cover;border-radius:16px;border:1px solid rgba(255,255,255,.18);}
-.world-kicker{display:inline-block;background:rgba(255,213,75,.12);border:1px solid rgba(255,213,75,.45);color:#ffe28f;font-weight:800;padding:6px 12px;border-radius:999px;font-size:12px;letter-spacing:.7px;}
-.question{font-size:clamp(22px,2.1vw,33px);line-height:1.2;font-weight:900;color:#fff;margin-top:10px;}
-.options{display:grid;gap:12px;}
-.option{width:100%;text-align:left;padding:16px 18px;font-size:17px;border-radius:16px;background:rgba(255,255,255,.08);border:1px solid rgba(108,201,255,.25);color:#f2f8ff;cursor:pointer;transition:.15s;}
-.option:hover:not(:disabled){transform:translateY(-1px);background:rgba(67,153,214,.22)}
-.option.good{background:rgba(61,168,106,.34);border-color:rgba(123,255,177,.95);}
-.option.bad{background:rgba(179,54,93,.35);border-color:rgba(255,131,171,.9);}
+.wrap{max-width:1280px;margin:auto;padding:20px;position:relative;z-index:1;}
+.screen{min-height:100vh;display:flex;align-items:center;justify-content:center;}
+.card{background:linear-gradient(180deg,rgba(8,24,48,.96),rgba(10,31,59,.95));border:1px solid var(--stroke);border-radius:28px;box-shadow:var(--shadow);overflow:hidden;}
+/* home */
+.home-shell{width:min(100%,1220px);display:grid;grid-template-columns:1.15fr .85fr;gap:0;overflow:hidden;}
+.home-art{position:relative;min-height:760px;background:url('poster_portada.jpg') center/cover no-repeat;}
+.home-art::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(2,14,26,.15) 0%,rgba(2,14,26,.62) 62%,rgba(2,14,26,.92) 100%);}
+.home-copy{position:absolute;left:36px;right:44%;bottom:34px;z-index:1;background:rgba(9,28,52,.58);backdrop-filter:blur(8px);padding:18px 20px;border-radius:22px;border:1px solid rgba(145,226,255,.25)}
+.home-copy h1{margin:0 0 8px;font-size:clamp(30px,4vw,52px);line-height:1.02}
+.home-copy p{margin:0;color:#e7f7ff;font-size:15px;line-height:1.45}
+.panel{padding:34px;display:flex;flex-direction:column;justify-content:center;background:radial-gradient(circle at top right,rgba(133,95,255,.18),transparent 24%),linear-gradient(180deg,rgba(9,24,48,.98),rgba(6,18,36,.98));}
+.logo-line{display:flex;align-items:center;gap:14px;margin-bottom:10px}
+.logo-line img{height:68px;background:#fff;border-radius:16px;padding:8px}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(125,243,255,.12);border:1px solid rgba(125,243,255,.32);color:#bff7ff;border-radius:999px;padding:8px 14px;font-size:13px;font-weight:800;letter-spacing:.4px;margin-bottom:14px}
+.panel h2{margin:0;font-size:clamp(28px,3vw,42px);line-height:1.1}
+.panel .sub{color:#dbeeff;line-height:1.55;margin:12px 0 18px;font-size:16px}
+.feature-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0 20px}
+.feature{background:rgba(255,255,255,.06);border:1px solid rgba(130,208,255,.18);padding:12px 14px;border-radius:16px;font-size:14px;color:#e9f4ff}
+.field-label{font-weight:800;margin:8px 0 8px;display:block;font-size:15px}
+.input{width:100%;padding:16px 18px;border-radius:18px;border:1px solid rgba(132,220,255,.35);background:#ffffff;color:#233;font-size:18px}
+.input:focus{outline:3px solid rgba(131,238,255,.35)}
+.home-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+.cta{border:none;border-radius:18px;padding:16px 22px;cursor:pointer;font-size:17px;font-weight:900;background:linear-gradient(90deg,#7ef271,#17c7ff);color:#07243b;box-shadow:0 10px 24px rgba(0,0,0,.28)}
+.cta.alt{background:rgba(255,255,255,.08);border:1px solid rgba(129,221,255,.28);color:#fff;box-shadow:none}
+#errorHome{display:none;margin-top:12px;color:#ffe3e3;background:rgba(115,20,29,.5);padding:10px 12px;border-radius:14px;border:1px solid rgba(255,167,167,.28)}
+/* game */
+.game{display:grid;grid-template-columns:320px 1fr;gap:18px;padding:18px;min-height:calc(100vh - 40px)}
+.side{padding:20px;background:linear-gradient(180deg,rgba(8,22,40,.86),rgba(6,18,32,.95));border-radius:24px;border:1px solid rgba(120,205,255,.22)}
+.side-hero{position:relative;border-radius:18px;overflow:hidden;min-height:220px;background:url('poster_portada.jpg') center/cover no-repeat;margin:14px 0;border:1px solid rgba(126,219,255,.25)}
+.side-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 25%,rgba(3,11,20,.85) 100%)}
+.side-hero .txt{position:absolute;left:14px;right:14px;bottom:14px;z-index:1;font-weight:800}
+.meter-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.meter{background:rgba(255,255,255,.06);border:1px solid rgba(129,221,255,.18);padding:12px;border-radius:16px}
+.meter span{display:block;font-size:12px;color:#cce8ff}
+.meter b{font-size:22px}
+.main{position:relative;padding:22px;background:linear-gradient(180deg,rgba(7,21,41,.88),rgba(8,25,48,.96));border-radius:24px;border:1px solid rgba(120,205,255,.24);overflow:hidden}
+.main::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at top left,rgba(125,243,255,.08),transparent 30%),radial-gradient(circle at top right,rgba(255,121,210,.08),transparent 25%);pointer-events:none}
+.topline{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;position:relative;z-index:1}
+.pill{padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(129,221,255,.24);font-weight:800;color:#eaf7ff}
+.progress-wrap{margin:16px 0 18px;height:14px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden;border:1px solid rgba(137,224,255,.2)}
+.progress{height:100%;width:0;background:linear-gradient(90deg,#ff7fd5,#8a73ff,#75ecff,#7eff95);transition:width .35s ease}
+.visual-card{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:start;position:relative;z-index:1}
+.scene{background:rgba(255,255,255,.04);border:1px solid rgba(137,224,255,.18);border-radius:24px;overflow:hidden;box-shadow:var(--shadow)}
+.scene img{width:100%;height:360px;object-fit:cover;display:block}
+.scene-info{padding:16px 18px;background:linear-gradient(180deg,rgba(8,25,44,.55),rgba(8,25,44,.88))}
+.kicker{display:inline-flex;align-items:center;gap:8px;background:rgba(255,215,107,.12);border:1px solid rgba(255,215,107,.34);color:#ffe699;padding:7px 12px;border-radius:999px;font-size:12px;font-weight:900;letter-spacing:.5px}
+.question-card{background:rgba(255,255,255,.04);border:1px solid rgba(129,221,255,.18);border-radius:24px;padding:20px}
+.qtitle{font-size:clamp(25px,2.5vw,36px);line-height:1.16;margin:12px 0 14px;font-weight:900}
+.options{display:grid;gap:12px;margin-top:12px}
+.option{width:100%;padding:16px;border-radius:18px;border:1px solid rgba(131,223,255,.2);background:rgba(255,255,255,.06);color:#fff;font-size:17px;text-align:left;cursor:pointer;transition:.16s}
+.option:hover:not(:disabled){transform:translateY(-2px);background:rgba(112,197,255,.16)}
+.option.good{background:rgba(88,210,123,.28);border-color:rgba(149,255,178,.82)}
+.option.bad{background:rgba(255,106,138,.25);border-color:rgba(255,141,170,.85)}
 .option:disabled{cursor:default}
-.feedback{padding:15px;border-radius:16px;background:rgba(255,255,255,.08);border:1px solid rgba(114,210,255,.28);display:none;line-height:1.45;color:#eff7ff;}
-.cta{border:none;border-radius:16px;padding:15px 20px;background:linear-gradient(90deg,#1ccaf8,#79ef8f);color:#08213b;font-size:18px;font-weight:900;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.25);}
-.cta.secondary{background:linear-gradient(90deg,#29466b,#3a5b85);color:#fff;}
-.finish-grid{display:grid;grid-template-columns:1fr;gap:18px;padding:24px;}
-.finish-hero{background:linear-gradient(180deg,rgba(7,22,42,.95),rgba(11,35,67,.95));border:1px solid rgba(94,200,255,.35);border-radius:24px;padding:24px;box-shadow:var(--shadow);position:relative;overflow:hidden;}
-.finish-hero:before{content:'';position:absolute;inset:0;background:url("poster_portada.jpg") center/cover no-repeat;opacity:.18;}
-.finish-hero>*{position:relative;z-index:1;}
-.center{text-align:center;}
-.diploma{background:#fffdf6;color:#16345d;border:10px double #cfb16e;border-radius:16px;padding:26px;max-width:980px;margin:0 auto;box-shadow:0 10px 35px rgba(0,0,0,.25);}
-.diploma-header{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;}
-.diploma-header img{height:78px;}
-.ribbon{display:inline-block;padding:8px 16px;border-radius:999px;background:#eef6ff;border:1px solid #bfd8f8;font-weight:800;}
-.score-boxes{display:flex;justify-content:center;gap:18px;flex-wrap:wrap;margin-top:18px;}
-.score-box{background:#edf6ff;padding:16px 28px;border-radius:16px;border:1px solid #cfe1f8;min-width:180px;}
-.score-box .num{font-size:38px;font-weight:900;}
-.finish-actions{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
-.small{font-size:13px;color:#dcecff;}
-@media (max-width:980px){
-  .game-layout{grid-template-columns:1fr;}
-  .world-banner{grid-template-columns:1fr;}
-  .world-banner img{width:100%;height:170px;}
-}
-@media (max-width:760px){
-  .wrap{padding:10px;}
-  .screen{min-height:auto;}
-  .start-input{left:39.2%;top:41.8%;width:38.5%;height:6.5%;font-size:14px;padding:0 10px;}
-  .start-btn{left:43.7%;top:52.8%;width:30.4%;height:8.4%;}
-  .error-home{left:35%;top:61.5%;width:46%;font-size:11px;}
-  .home-help{left:34%;top:67.8%;width:47%;font-size:10px;}
-}
-@media print{
-  body *{visibility:hidden !important}
-  #diplomaPrint, #diplomaPrint *{visibility:visible !important}
-  #diplomaPrint{position:fixed;left:0;top:0;right:0;bottom:0;margin:0;padding:24px;}
-}
+.feedback{display:none;margin-top:14px;padding:16px;border-radius:18px;background:rgba(255,255,255,.07);border:1px solid rgba(129,221,255,.18);line-height:1.55}
+.nextrow{display:flex;justify-content:flex-end;margin-top:14px}
+/* diploma */
+.finish{padding:26px;display:grid;gap:18px}
+.finish-top{text-align:center;padding:24px;border-radius:24px;background:linear-gradient(135deg,rgba(130,92,255,.24),rgba(22,199,255,.15),rgba(126,242,113,.14));border:1px solid rgba(147,226,255,.28)}
+.finish-top h2{font-size:40px;margin:6px 0 8px}
+.diploma-wrap{max-width:1040px;margin:0 auto;background:linear-gradient(135deg,#fffef9,#f7fbff 35%,#fffaf2);border-radius:28px;padding:18px;box-shadow:0 25px 55px rgba(0,0,0,.28)}
+.diploma{position:relative;background:linear-gradient(180deg,#ffffff,#f8fbff 40%,#fffaf4);border-radius:24px;padding:32px;border:4px solid #d6b96d;overflow:hidden;color:#18345d}
+.diploma::before{content:'';position:absolute;inset:12px;border:2px dashed rgba(215,181,94,.65);border-radius:18px;pointer-events:none}
+.diploma::after{content:'★ ★ ★';position:absolute;top:18px;right:26px;color:#ffb200;font-size:18px;letter-spacing:4px}
+.dheader{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.dheader img{height:86px}
+.shield{display:inline-flex;align-items:center;justify-content:center;width:108px;height:108px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff3a8,#ffc04d 55%,#ff9f1c);color:#5d3700;font-size:22px;font-weight:900;box-shadow:inset 0 3px 10px rgba(255,255,255,.6),0 10px 22px rgba(0,0,0,.14)}
+.ribbon{display:inline-block;margin-top:16px;padding:10px 18px;border-radius:999px;background:linear-gradient(90deg,#884dff,#11c8ff);color:#fff;font-weight:900;letter-spacing:.8px;box-shadow:0 8px 20px rgba(119,101,255,.25)}
+.student-name{font-size:42px;font-weight:900;margin:14px 0 6px;color:#18345d;text-align:center}
+.lead{font-size:18px;text-align:center;max-width:820px;margin:10px auto;line-height:1.6}
+.score-pods{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin:22px 0}
+.pod{min-width:190px;padding:20px;border-radius:20px;background:linear-gradient(180deg,#eef7ff,#ffffff);border:1px solid #d3e6fb;text-align:center;box-shadow:0 8px 20px rgba(20,56,110,.08)}
+.pod .big{font-size:40px;font-weight:900}
+.stamp{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border:2px solid #2e90ff;border-radius:999px;color:#2e5b8e;font-weight:800;background:#eef6ff}
+.science-band{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:36px}
+.actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.small{font-size:13px;color:#dcecff;text-align:center}
+@media (max-width:1020px){.home-shell,.game,.visual-card{grid-template-columns:1fr} .home-art{min-height:420px} .home-copy{left:20px;right:20px;bottom:18px} .scene img{height:260px}}
+@media print{body *{visibility:hidden !important} #printArea,#printArea *{visibility:visible !important} #printArea{position:fixed;left:0;top:0;width:100%;margin:0;padding:0}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <section id="homeScreen" class="screen">
-    <div class="poster-shell">
-      <img class="poster-bg" src="poster_portada.jpg" alt="BioQuest CLUE" />
-      <div class="poster-overlay">
-        <input id="studentName" class="start-input" type="text" maxlength="90" autocomplete="off" aria-label="Nombre y apellido" placeholder="" />
-        <button id="startBtn" class="start-btn" aria-label="Comenzar la expedición"></button>
-        <div id="homeError" class="error-home">Debes escribir nombre y apellido para empezar.</div>
-        <div class="home-help">Juego de práctica • 30 tarjetas • sin guardar datos</div>
+  <section id="home" class="screen">
+    <div class="card home-shell">
+      <div class="home-art">
+        <div class="home-copy">
+          <h1>BioQuest CLUE</h1>
+          <p>Resuelve pistas, explora mundos científicos y demuestra cuánto sabes de Ciencias Naturales en una aventura juvenil pensada para 10mo EGB.</p>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="logo-line"><img src="logo_uedde.png" alt="Logo UEDDE"><div><div class="badge">UEDDE · 10mo EGB · CIENCIAS NATURALES</div><h2>Expedición científica interactiva</h2></div></div>
+        <div class="sub">Incluye 30 preguntas, escenas temáticas, retroalimentación inmediata y un diploma final más vistoso. Todo ocurre en esta misma partida: al salir, no se guarda información.</div>
+        <div class="feature-grid">
+          <div class="feature">🧩 30 pistas de práctica</div>
+          <div class="feature">🖼️ Imagen temática en cada pregunta</div>
+          <div class="feature">🏆 Diploma juvenil imprimible</div>
+          <div class="feature">⚡ Puntaje automático sobre 100</div>
+        </div>
+        <label class="field-label" for="studentName">Nombre y apellido del explorador</label>
+        <input id="studentName" class="input" maxlength="90" placeholder="Escribe tu nombre y apellido">
+        <div class="home-actions">
+          <button id="startBtn" class="cta">▶ Comenzar la expedición</button>
+          <button class="cta alt" onclick="document.getElementById('studentName').focus()">✍️ Escribir nombre</button>
+        </div>
+        <div id="errorHome">Debes escribir nombre y apellido para empezar.</div>
       </div>
     </div>
   </section>
 
-  <section id="playScreen" class="hidden card">
-    <div class="game-layout">
-      <aside class="side-panel">
-        <div class="brand">
-          <img src="logo_uedde.png" alt="Logo UEDDE">
-          <div class="brand-text">BIOQUEST CLUE<br>CIENCIAS NATURALES · 10.º EGB</div>
-        </div>
-        <div class="hero-side">
-          <img src="poster_portada.jpg" alt="Portada del juego">
-        </div>
-        <div class="small">Explora 6 mundos científicos y resuelve 30 pistas basadas en la guía de estudio.</div>
-        <div class="stat-grid">
-          <div class="stat">Tarjetas<b id="cardsLeft">1 / 30</b></div>
-          <div class="stat">Aciertos<b id="hitCount">0</b></div>
-          <div class="stat">Puntaje<b id="scorePct">0</b></div>
-          <div class="stat">Jugador<b id="playerSide" style="font-size:15px;line-height:1.2"></b></div>
+  <section id="game" class="hidden card">
+    <div class="game">
+      <aside class="side">
+        <div class="logo-line"><img src="logo_uedde.png" alt="UEDDE"><div style="font-weight:900;line-height:1.25">BIOQUEST CLUE<br><span style="font-weight:700;color:#bfe6ff;font-size:14px">Unidad Educativa Diez de Enero</span></div></div>
+        <div class="side-hero"><div class="txt">Explora, observa, responde y conquista los 6 mundos científicos.</div></div>
+        <div class="meter-grid">
+          <div class="meter"><span>Pregunta</span><b id="mQuestion">1/30</b></div>
+          <div class="meter"><span>Aciertos</span><b id="mHits">0</b></div>
+          <div class="meter"><span>Puntaje</span><b id="mScore">0</b></div>
+          <div class="meter"><span>Jugador</span><b id="mPlayer" style="font-size:14px;line-height:1.2"></b></div>
         </div>
       </aside>
-      <main class="main-panel">
-        <div class="top-bar">
-          <div class="pill" id="playerTop">👤</div>
-          <div class="pill" id="worldTop">🌎 Mundo científico</div>
+      <main class="main">
+        <div class="topline">
+          <div class="pill" id="worldPill">🌍 Mundo científico</div>
+          <div class="pill" id="counterPill">Pista 1 de 30</div>
         </div>
-        <div class="progress-wrap"><div class="progress-bar" id="progressBar"></div></div>
-        <div class="world-banner">
-          <img id="worldImage" alt="Tema" src="" />
-          <div>
-            <span class="world-kicker" id="questionCounter">PISTA 1 DE 30</span>
-            <div class="question" id="questionText"></div>
+        <div class="progress-wrap"><div id="progress" class="progress"></div></div>
+        <div class="visual-card">
+          <div class="scene">
+            <img id="qImage" src="" alt="Imagen temática de la pregunta">
+            <div class="scene-info">
+              <span class="kicker" id="qTag">Mundo científico</span>
+              <div style="margin-top:8px;color:#d8edff;font-size:14px" id="qSceneTitle"></div>
+            </div>
+          </div>
+          <div class="question-card">
+            <div class="qtitle" id="qText"></div>
+            <div id="options" class="options"></div>
+            <div id="feedback" class="feedback"></div>
+            <div class="nextrow"><button id="nextBtn" class="cta hidden">Continuar →</button></div>
           </div>
         </div>
-        <div class="options" id="optionsBox"></div>
-        <div class="feedback" id="feedbackBox"></div>
-        <button class="cta hidden" id="nextBtn">Continuar expedición →</button>
       </main>
     </div>
   </section>
 
-  <section id="finishScreen" class="hidden finish-grid">
-    <div class="finish-hero center">
-      <div style="font-size:60px">🏆✨</div>
-      <h2 style="font-size:38px;margin:6px 0 10px">¡Expedición completada!</h2>
-      <p style="font-size:18px;max-width:760px;margin:0 auto;color:#e5f3ff">Terminaste BioQuest CLUE con los 6 mundos científicos. Ya puedes imprimir tu diploma de participación.</p>
+  <section id="finish" class="hidden finish">
+    <div class="finish-top card">
+      <div style="font-size:58px">🚀🏆🔬</div>
+      <h2>¡Expedición completada!</h2>
+      <div style="font-size:18px;color:#dff4ff">Completaste BioQuest CLUE y ya puedes imprimir tu reconocimiento final.</div>
     </div>
-    <div id="diplomaPrint" class="diploma">
-      <div class="diploma-header">
-        <img src="logo_uedde.png" alt="UEDDE">
-        <div>
-          <div style="font-size:13px;letter-spacing:2px;font-weight:700">UNIDAD EDUCATIVA</div>
-          <div style="font-size:30px;font-weight:900">DIEZ DE ENERO</div>
-          <div style="font-size:13px">Ciencias Naturales · 10.º EGB</div>
+    <div id="printArea" class="diploma-wrap">
+      <div class="diploma">
+        <div class="dheader">
+          <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap"><img src="logo_uedde.png" alt="logo"><div><div style="font-size:13px;letter-spacing:2px;font-weight:800">UNIDAD EDUCATIVA</div><div style="font-size:34px;font-weight:900">DIEZ DE ENERO</div><div style="font-size:14px">Ciencias Naturales · 10mo EGB</div></div></div>
+          <div class="shield">100<br><span style="font-size:12px">PUNTOS</span></div>
         </div>
+        <div style="text-align:center"><span class="ribbon">DIPLOMA DE PARTICIPACIÓN</span></div>
+        <div style="text-align:center;margin-top:14px;font-size:28px;font-weight:900">BioQuest CLUE · Expedición Científica</div>
+        <div class="lead">Se reconoce la participación destacada de</div>
+        <div class="student-name" id="dName"></div>
+        <div class="lead">por completar el juego educativo de práctica sobre <strong>biomas del mundo, ecosistemas del Ecuador, clima y océanos, origen de la vida, historia de la Tierra y bioelementos</strong>.</div>
+        <div class="score-pods">
+          <div class="pod"><div class="big" id="d100">0</div><div>Puntos sobre 100</div></div>
+          <div class="pod"><div class="big" id="d10">0,00</div><div>Equivale a /10,00</div></div>
+          <div class="pod"><div class="big" id="dHits">0</div><div>Respuestas correctas</div></div>
+        </div>
+        <div style="text-align:center"><span class="stamp">🌟 Explorador científico UEDDE 🌟</span></div>
+        <div class="science-band">🌿 🌎 🔬 🧪 🧬 🦖 🌊</div>
+        <div style="text-align:center;margin-top:16px;font-size:14px" id="dDate"></div>
+        <div style="text-align:center;margin-top:10px;font-style:italic">"Aprender es explorar con curiosidad y responder con inteligencia".</div>
       </div>
-      <div class="center" style="margin-top:16px"><span class="ribbon">DIPLOMA DE PARTICIPACIÓN</span></div>
-      <h3 class="center" style="font-size:34px;margin:18px 0 8px">BioQuest CLUE — Expedición Científica</h3>
-      <p class="center" style="font-size:18px;margin:0">Se otorga el presente reconocimiento a</p>
-      <div class="center" id="diplomaName" style="font-size:34px;font-weight:900;margin-top:10px"></div>
-      <p class="center" style="font-size:17px;max-width:780px;margin:14px auto 0">por participar activamente en el juego interactivo de práctica sobre biomas, ecosistemas del Ecuador, clima y océanos, origen de la vida, historia de la vida y bioelementos.</p>
-      <div class="score-boxes">
-        <div class="score-box center"><div class="num" id="diploma100">0</div><div>puntos sobre 100</div></div>
-        <div class="score-box center"><div class="num" id="diploma10">0,00</div><div>equivale a /10,00</div></div>
-      </div>
-      <div class="center" id="diplomaDate" style="margin-top:18px;font-size:14px"></div>
-      <div class="center" style="margin-top:20px;font-size:50px">🔬🌿🌊🦖🧪</div>
-      <div class="center" style="margin-top:8px;font-style:italic">“El conocimiento se explora, se descubre y se conquista”.</div>
     </div>
-    <div class="finish-actions">
+    <div class="actions">
       <button class="cta" id="printBtn">🖨️ Imprimir diploma</button>
-      <button class="cta secondary" id="restartBtn">🔄 Jugar otra vez</button>
+      <button class="cta alt" id="restartBtn">🔄 Jugar otra vez</button>
     </div>
-    <p class="center small">Los resultados solo existen en esta sesión. Si cierras o recargas, todo se borra.</p>
+    <div class="small">Los resultados solo existen en esta sesión. Al cerrar o recargar, todo se borra.</div>
   </section>
 </div>
 <script>
-const topicImages = {
-  0:'poster_alt.jpg',
-  1:'poster_portada.jpg',
-  2:'poster_alt.jpg',
-  3:'poster_portada.jpg',
-  4:'poster_alt.jpg',
-  5:'poster_portada.jpg'
-};
-const worlds=[['Biomas del mundo'],['Ecosistemas del Ecuador'],['Clima y océanos'],['Origen de la vida'],['Historia de la vida'],['Bioelementos y carbono']];
-const questions=[
-[0,"¿Qué dos factores abióticos influyen especialmente en la distribución de los biomas?",["Temperatura y precipitaciones","Depredadores y presas","Color y tamaño de animales"],0,"La temperatura y las lluvias condicionan la vegetación y la fauna."],
-[0,"Encuentras coníferas e inviernos largos y fríos. ¿Dónde estás?",["En la sabana","En la taiga","En el desierto"],1,"La taiga es un bioma de bosques de coníferas y clima frío."],
-[0,"¿Qué bioma presenta vegetación muy baja debido al frío intenso?",["Selva tropical","Sabana","Tundra"],2,"Las condiciones de la tundra limitan el crecimiento de árboles."],
-[0,"¿Cuál de estas adaptaciones ayuda a sobrevivir al cactus?",["Reducir la pérdida de agua","Tener hojas muy grandes","Necesitar lluvias constantes"],0,"El cactus conserva agua mediante adaptaciones como tallos suculentos y espinas."],
-[0,"¿Qué descripción identifica a la sabana?",["Bosques densos de coníferas","Pastos y árboles dispersos con estación seca y lluviosa","Hielo permanente sin vegetación"],1,"La sabana combina pastizales y árboles separados."],
-[1,"¿Qué región del Ecuador posee páramos y bosques montanos?",["Sierra","Costa","Insular"],0,"En la Sierra, la altitud permite ecosistemas de montaña."],
-[1,"¿Por qué los páramos son fundamentales para el agua?",["Porque producen agua salada","Porque regulan y almacenan agua","Porque impiden toda lluvia"],1,"Los páramos contribuyen a la regulación hídrica."],
-[1,"¿Qué ecosistema caracteriza a sectores húmedos del Chocó?",["Bosque húmedo tropical","Tundra polar","Desierto helado"],0,"El Chocó presenta bosques tropicales de alta humedad."],
-[1,"¿Qué explica parte de la singularidad de Galápagos?",["Ausencia total de animales","Clima idéntico a todos los continentes","Aislamiento geográfico"],2,"Su aislamiento contribuyó al desarrollo de especies singulares."],
-[1,"Un río amazónico recibe residuos. ¿Cuál es una respuesta responsable?",["Eliminar la vegetación ribereña","Reducir los vertidos y restaurar las riberas","Introducir especies invasoras"],1,"La protección del agua y la vegetación ayuda a conservar los ecosistemas."],
-[2,"¿Qué sucede con la temperatura superficial del Pacífico ecuatorial durante El Niño?",["Se calienta anómalamente","Se congela por completo","No cambia nunca"],0,"El Niño implica un calentamiento anómalo de las aguas superficiales."],
-[2,"¿Qué caracteriza a La Niña?",["Aumento permanente del nivel del mar","Enfriamiento anómalo del Pacífico ecuatorial","Desaparición de las corrientes marinas"],1,"La Niña se relaciona con temperaturas superficiales inferiores a lo habitual."],
-[2,"¿Qué hacen las corrientes marinas?",["Detienen el movimiento del océano","Eliminan la biodiversidad","Transportan calor e influyen en el clima"],2,"Las corrientes redistribuyen calor y afectan ambientes marinos."],
-[2,"¿Cuál es una causa importante del calentamiento global actual?",["La acumulación de gases de efecto invernadero de origen humano","La disminución total de CO₂","La detención del Sol"],0,"Las actividades humanas aumentan la concentración de gases de efecto invernadero."],
-[2,"Ante lluvias fuertes, ¿qué medida ayuda a reducir el riesgo?",["Arrojar basura en desagües","Mantener despejados los drenajes y seguir alertas","Acercarse a ríos desbordados"],1,"La prevención y la atención a las alertas disminuyen riesgos."],
-[3,"¿Qué sostiene la biogénesis?",["La vida surge siempre del barro","Todos los seres vivos provienen de otros seres vivos","La materia inerte produce organismos de inmediato"],1,"La biogénesis afirma que la vida procede de vida preexistente."],
-[3,"¿Qué estudió Francesco Redi mediante recipientes con carne?",["La relación entre moscas y aparición de larvas","La formación de galaxias","La fotosíntesis de las plantas"],0,"Redi comparó el acceso de moscas a la carne y la aparición de larvas."],
-[3,"¿Qué científico utilizó matraces de cuello de cisne?",["Darwin","Oparin","Pasteur"],2,"Pasteur aportó evidencia contra la generación espontánea mediante estos experimentos."],
-[3,"¿Qué propuso la hipótesis de Oparin y Haldane?",["Que los seres vivos aparecieron ya completos","Formación de moléculas orgánicas en condiciones primitivas","Que el oxígeno existió antes que la Tierra"],1,"Propusieron procesos de evolución química a partir de sustancias simples."],
-[3,"¿Qué obtuvieron Miller y Urey en su experimento?",["Moléculas orgánicas, pero no seres vivos","Animales pluricelulares","Células humanas completas"],0,"Su experimento produjo compuestos orgánicos, no vida."],
-[4,"¿Hace aproximadamente cuánto se formó la Tierra?",["541 millones de años","4 500 millones de años","100 millones de años"],1,"La guía sitúa la formación terrestre en unos 4 500 millones de años."],
-[4,"¿Qué proceso se asocia con la Gran Oxidación?",["Fotosíntesis de antiguos microorganismos","Explosión de volcanes solares","Aparición de dinosaurios"],0,"La actividad fotosintética contribuyó al aumento del oxígeno."],
-[4,"¿Hace aproximadamente cuánto aparecieron las células eucariotas?",["Hace 541 millones de años","Hace 10 millones de años","Hace 2 000 millones de años"],2,"La guía aproxima la aparición de eucariotas a 2 000 millones de años."],
-[4,"¿Qué caracterizó la Explosión Cámbrica?",["La formación de la Tierra","Una gran diversificación de animales","La desaparición de todos los mares"],1,"Hace unos 541 millones de años se diversificaron numerosos grupos animales."],
-[4,"¿Qué acontecimiento ocurrió primero?",["Formación de la Tierra","Explosión Cámbrica","Aparición de organismos pluricelulares"],0,"La Tierra tuvo que formarse antes de que aparecieran formas de vida."],
-[5,"¿Cuál es un conjunto de bioelementos primarios?",["Calcio, sodio, potasio y cloro","Carbono, hidrógeno, oxígeno y nitrógeno","Hierro, cobre, yodo y zinc"],1,"C, H, O y N son bioelementos primarios destacados en la guía."],
-[5,"¿Cuál de los siguientes es un bioelemento secundario?",["Carbono","Nitrógeno","Calcio"],2,"El calcio es uno de los bioelementos secundarios mencionados."],
-[5,"¿Qué caracteriza a un oligoelemento?",["Se necesita en cantidades muy pequeñas","No cumple ninguna función biológica","Siempre es el componente más abundante"],0,"Los oligoelementos tienen funciones importantes incluso en pequeñas cantidades."],
-[5,"¿Cuántos enlaces covalentes puede formar el carbono?",["Dos","Cuatro","Ocho"],1,"El carbono puede formar cuatro enlaces covalentes."],
-[5,"¿Qué ocurre con el carbono del CO₂ durante la fotosíntesis?",["Desaparece del planeta","Se convierte exclusivamente en sal","Se incorpora a moléculas orgánicas"],2,"Las plantas incorporan carbono del CO₂ para formar sustancias orgánicas."]
+const themeData = [
+  { name:'Biomas del mundo', image:'biomas.png' },
+  { name:'Ecosistemas del Ecuador', image:'ecosistemas_ecuador.png' },
+  { name:'Clima y océanos', image:'clima_oceanos.png' },
+  { name:'Origen de la vida', image:'origen_vida.png' },
+  { name:'Historia de la Tierra', image:'historia_vida.png' },
+  { name:'Bioelementos y carbono', image:'bioelementos.png' }
 ];
+const questions = [[0, "¿Qué dos factores abióticos influyen especialmente en la distribución de los biomas?", ["Temperatura y precipitaciones", "Depredadores y presas", "Color y tamaño de animales"], 0, "La temperatura y las lluvias condicionan la vegetación y la fauna.", "Claves de los biomas"], [0, "Encuentras coníferas e inviernos largos y fríos. ¿Dónde estás?", ["En la sabana", "En la taiga", "En el desierto"], 1, "La taiga es un bioma de bosques de coníferas y clima frío.", "Taiga y frío extremo"], [0, "¿Qué bioma presenta vegetación muy baja debido al frío intenso?", ["Selva tropical", "Sabana", "Tundra"], 2, "Las condiciones de la tundra limitan el crecimiento de árboles.", "Tundra"], [0, "¿Cuál de estas adaptaciones ayuda a sobrevivir al cactus?", ["Reducir la pérdida de agua", "Tener hojas muy grandes", "Necesitar lluvias constantes"], 0, "El cactus conserva agua mediante adaptaciones como tallos suculentos y espinas.", "Adaptaciones del desierto"], [0, "¿Qué descripción identifica a la sabana?", ["Bosques densos de coníferas", "Pastos y árboles dispersos con estación seca y lluviosa", "Hielo permanente sin vegetación"], 1, "La sabana combina pastizales y árboles separados.", "Paisajes de sabana"], [1, "¿Qué región del Ecuador posee páramos y bosques montanos?", ["Sierra", "Costa", "Insular"], 0, "En la Sierra, la altitud permite ecosistemas de montaña.", "Sierra ecuatoriana"], [1, "¿Por qué los páramos son fundamentales para el agua?", ["Porque producen agua salada", "Porque regulan y almacenan agua", "Porque impiden toda lluvia"], 1, "Los páramos contribuyen a la regulación hídrica.", "Páramos y agua"], [1, "¿Qué ecosistema caracteriza a sectores húmedos del Chocó?", ["Bosque húmedo tropical", "Tundra polar", "Desierto helado"], 0, "El Chocó presenta bosques tropicales de alta humedad.", "Bosque húmedo tropical"], [1, "¿Qué explica parte de la singularidad de Galápagos?", ["Ausencia total de animales", "Clima idéntico a todos los continentes", "Aislamiento geográfico"], 2, "Su aislamiento contribuyó al desarrollo de especies singulares.", "Galápagos"], [1, "Un río amazónico recibe residuos. ¿Cuál es una respuesta responsable?", ["Eliminar la vegetación ribereña", "Reducir los vertidos y restaurar las riberas", "Introducir especies invasoras"], 1, "La protección del agua y la vegetación ayuda a conservar los ecosistemas.", "Cuidado del Amazonas"], [2, "¿Qué sucede con la temperatura superficial del Pacífico ecuatorial durante El Niño?", ["Se calienta anómalamente", "Se congela por completo", "No cambia nunca"], 0, "El Niño implica un calentamiento anómalo de las aguas superficiales.", "El Niño"], [2, "¿Qué caracteriza a La Niña?", ["Aumento permanente del nivel del mar", "Enfriamiento anómalo del Pacífico ecuatorial", "Desaparición de las corrientes marinas"], 1, "La Niña se relaciona con temperaturas superficiales inferiores a lo habitual.", "La Niña"], [2, "¿Qué hacen las corrientes marinas?", ["Detienen el movimiento del océano", "Eliminan la biodiversidad", "Transportan calor e influyen en el clima"], 2, "Las corrientes redistribuyen calor y afectan ambientes marinos.", "Corrientes marinas"], [2, "¿Cuál es una causa importante del calentamiento global actual?", ["La acumulación de gases de efecto invernadero de origen humano", "La disminución total de CO₂", "La detención del Sol"], 0, "Las actividades humanas aumentan la concentración de gases de efecto invernadero.", "Cambio climático"], [2, "Ante lluvias fuertes, ¿qué medida ayuda a reducir el riesgo?", ["Arrojar basura en desagües", "Mantener despejados los drenajes y seguir alertas", "Acercarse a ríos desbordados"], 1, "La prevención y la atención a las alertas disminuyen riesgos.", "Prevención ante lluvias"], [3, "¿Qué sostiene la biogénesis?", ["La vida surge siempre del barro", "Todos los seres vivos provienen de otros seres vivos", "La materia inerte produce organismos de inmediato"], 1, "La biogénesis afirma que la vida procede de vida preexistente.", "Biogénesis"], [3, "¿Qué estudió Francesco Redi mediante recipientes con carne?", ["La relación entre moscas y aparición de larvas", "La formación de galaxias", "La fotosíntesis de las plantas"], 0, "Redi comparó el acceso de moscas a la carne y la aparición de larvas.", "Experimento de Redi"], [3, "¿Qué científico utilizó matraces de cuello de cisne?", ["Darwin", "Oparin", "Pasteur"], 2, "Pasteur aportó evidencia contra la generación espontánea mediante estos experimentos.", "Pasteur"], [3, "¿Qué propuso la hipótesis de Oparin y Haldane?", ["Que los seres vivos aparecieron ya completos", "Formación de moléculas orgánicas en condiciones primitivas", "Que el oxígeno existió antes que la Tierra"], 1, "Propusieron procesos de evolución química a partir de sustancias simples.", "Oparin y Haldane"], [3, "¿Qué obtuvieron Miller y Urey en su experimento?", ["Moléculas orgánicas, pero no seres vivos", "Animales pluricelulares", "Células humanas completas"], 0, "Su experimento produjo compuestos orgánicos, no vida.", "Miller y Urey"], [4, "¿Hace aproximadamente cuánto se formó la Tierra?", ["541 millones de años", "4 500 millones de años", "100 millones de años"], 1, "La guía sitúa la formación terrestre en unos 4 500 millones de años.", "Formación de la Tierra"], [4, "¿Qué proceso se asocia con la Gran Oxidación?", ["Fotosíntesis de antiguos microorganismos", "Explosión de volcanes solares", "Aparición de dinosaurios"], 0, "La actividad fotosintética contribuyó al aumento del oxígeno.", "Gran Oxidación"], [4, "¿Hace aproximadamente cuánto aparecieron las células eucariotas?", ["Hace 541 millones de años", "Hace 10 millones de años", "Hace 2 000 millones de años"], 2, "La guía aproxima la aparición de eucariotas a 2 000 millones de años.", "Células eucariotas"], [4, "¿Qué caracterizó la Explosión Cámbrica?", ["La formación de la Tierra", "Una gran diversificación de animales", "La desaparición de todos los mares"], 1, "Hace unos 541 millones de años se diversificaron numerosos grupos animales.", "Explosión Cámbrica"], [4, "¿Qué acontecimiento ocurrió primero?", ["Formación de la Tierra", "Explosión Cámbrica", "Aparición de organismos pluricelulares"], 0, "La Tierra tuvo que formarse antes de que aparecieran formas de vida.", "Primero en la historia"], [5, "¿Cuál es un conjunto de bioelementos primarios?", ["Calcio, sodio, potasio y cloro", "Carbono, hidrógeno, oxígeno y nitrógeno", "Hierro, cobre, yodo y zinc"], 1, "C, H, O y N son bioelementos primarios destacados en la guía.", "Bioelementos primarios"], [5, "¿Cuál de los siguientes es un bioelemento secundario?", ["Carbono", "Nitrógeno", "Calcio"], 2, "El calcio es uno de los bioelementos secundarios mencionados.", "Bioelemento secundario"], [5, "¿Qué caracteriza a un oligoelemento?", ["Se necesita en cantidades muy pequeñas", "No cumple ninguna función biológica", "Siempre es el componente más abundante"], 0, "Los oligoelementos tienen funciones importantes incluso en pequeñas cantidades.", "Oligoelementos"], [5, "¿Cuántos enlaces covalentes puede formar el carbono?", ["Dos", "Cuatro", "Ocho"], 1, "El carbono puede formar cuatro enlaces covalentes.", "Enlaces del carbono"], [5, "¿Qué ocurre con el carbono del CO₂ durante la fotosíntesis?", ["Desaparece del planeta", "Se convierte exclusivamente en sal", "Se incorpora a moléculas orgánicas"], 2, "Las plantas incorporan carbono del CO₂ para formar sustancias orgánicas.", "Carbono y fotosíntesis"]];
 let pos=0,hits=0,student='';
-const $=id=>document.getElementById(id);
-function show(id){['homeScreen','playScreen','finishScreen'].forEach(s=>$(s).classList.toggle('hidden',s!==id));window.scrollTo(0,0)}
-function safeName(v){return v.trim().replace(/\s+/g,' ')}
-function updateQuestion(){
-  const q=questions[pos], world=worlds[q[0]][0];
-  $('playerTop').textContent='👤 '+student;
-  $('playerSide').textContent=student;
-  $('worldTop').textContent='🌍 '+world;
-  $('cardsLeft').textContent=(pos+1)+' / '+questions.length;
-  $('hitCount').textContent=hits;
-  $('scorePct').textContent=Math.round(hits*100/questions.length)+' pts';
-  $('questionCounter').textContent='PISTA '+(pos+1)+' DE '+questions.length;
-  $('questionText').textContent=q[1];
-  $('worldImage').src=topicImages[q[0]];
-  $('progressBar').style.width=(pos/questions.length*100)+'%';
-  const box=$('optionsBox'); box.innerHTML='';
-  $('feedbackBox').style.display='none';
+const $ = id => document.getElementById(id);
+function show(id){['home','game','finish'].forEach(s=>$(s).classList.toggle('hidden',s!==id));window.scrollTo(0,0);}
+function cleanName(v){return v.trim().replace(/\s+/g,' ');}
+function updateQ(){
+  const q = questions[pos]; const theme = themeData[q[0]];
+  $('mQuestion').textContent = `${pos+1}/${questions.length}`;
+  $('mHits').textContent = hits;
+  $('mScore').textContent = Math.round(hits*100/questions.length);
+  $('mPlayer').textContent = student;
+  $('worldPill').textContent = '🌍 ' + theme.name;
+  $('counterPill').textContent = `Pista ${pos+1} de ${questions.length}`;
+  $('progress').style.width = `${(pos/questions.length)*100}%`;
+  $('qImage').src = theme.image;
+  $('qTag').textContent = theme.name;
+  $('qSceneTitle').textContent = q[5];
+  $('qText').textContent = q[1];
+  const box = $('options'); box.innerHTML='';
+  $('feedback').style.display='none';
   $('nextBtn').classList.add('hidden');
   let answered=false;
   q[2].forEach((opt,i)=>{
-    const btn=document.createElement('button');
-    btn.className='option';
-    btn.textContent=String.fromCharCode(65+i)+'. '+opt;
-    btn.onclick=()=>{
-      if(answered) return;
-      answered=true;
+    const b=document.createElement('button');
+    b.className='option';
+    b.textContent = String.fromCharCode(65+i)+'. '+opt;
+    b.onclick=()=>{
+      if(answered) return; answered=true;
       if(i===q[3]) hits++;
-      [...box.children].forEach((node,j)=>{node.disabled=true; if(j===q[3]) node.classList.add('good'); else if(j===i) node.classList.add('bad');});
-      $('hitCount').textContent=hits;
-      $('scorePct').textContent=Math.round(hits*100/questions.length)+' pts';
-      $('feedbackBox').innerHTML='<strong>'+(i===q[3]?'✅ ¡Correcto! ':'❌ Respuesta correcta: '+q[2][q[3]]+'</strong>')+'<div style="margin-top:8px">'+q[4]+'</div>';
-      if(i===q[3]) $('feedbackBox').innerHTML='<strong>✅ ¡Correcto!</strong><div style="margin-top:8px">'+q[4]+'</div>';
-      $('feedbackBox').style.display='block';
-      $('nextBtn').textContent=(pos===questions.length-1)?'🏆 Ver diploma':'Continuar expedición →';
+      [...box.children].forEach((el,j)=>{el.disabled=true; if(j===q[3]) el.classList.add('good'); else if(j===i) el.classList.add('bad');});
+      $('mHits').textContent = hits; $('mScore').textContent = Math.round(hits*100/questions.length);
+      $('feedback').innerHTML = (i===q[3] ? '<strong>✅ ¡Correcto!</strong>' : '<strong>❌ Respuesta correcta: '+q[2][q[3]]+'</strong>') + '<div style="margin-top:8px">'+q[4]+'</div>';
+      $('feedback').style.display='block';
+      $('nextBtn').textContent = pos===questions.length-1 ? '🏆 Ver diploma' : 'Continuar →';
       $('nextBtn').classList.remove('hidden');
     };
-    box.appendChild(btn);
+    box.appendChild(b);
   });
 }
 $('startBtn').onclick=()=>{
-  const n=safeName($('studentName').value);
-  if(n.split(' ').filter(Boolean).length<2){ $('homeError').style.display='block'; return; }
-  $('homeError').style.display='none'; student=n; pos=0; hits=0; show('playScreen'); updateQuestion();
+  const n=cleanName($('studentName').value);
+  if(n.split(' ').filter(Boolean).length<2){ $('errorHome').style.display='block'; return; }
+  $('errorHome').style.display='none'; student=n; pos=0; hits=0; show('game'); updateQ();
 };
-$('studentName').addEventListener('keydown',e=>{ if(e.key==='Enter') $('startBtn').click(); });
+$('studentName').addEventListener('keydown',e=>{if(e.key==='Enter') $('startBtn').click();});
 $('nextBtn').onclick=()=>{
   pos++;
-  if(pos<questions.length){ updateQuestion(); return; }
-  const points=Math.round(hits*100/questions.length);
-  $('diplomaName').textContent=student;
-  $('diploma100').textContent=points;
-  $('diploma10').textContent=(hits*10/questions.length).toFixed(2).replace('.',',');
-  $('diplomaDate').textContent='Emitido el '+new Date().toLocaleDateString('es-EC');
-  show('finishScreen');
+  if(pos<questions.length) return updateQ();
+  const p100 = Math.round(hits*100/questions.length);
+  const p10 = (hits*10/questions.length).toFixed(2).replace('.',',');
+  $('dName').textContent = student;
+  $('d100').textContent = p100;
+  $('d10').textContent = p10;
+  $('dHits').textContent = hits;
+  $('dDate').textContent = 'Emitido el ' + new Date().toLocaleDateString('es-EC');
+  show('finish');
 };
 $('printBtn').onclick=()=>window.print();
-$('restartBtn').onclick=()=>{student=''; pos=0; hits=0; $('studentName').value=''; show('homeScreen');};
+$('restartBtn').onclick=()=>{student=''; pos=0; hits=0; $('studentName').value=''; show('home');};
 </script>
 </body>
 </html>
